@@ -1,0 +1,22 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "The best way to watch a videos.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asdsdsfdg/wetube.git"
+  },
+  "keywords": [],
+  "author": "asdsdsfdg",
+  "scripts": {
+    "win": "node index.js"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asdsdsfdg/wetube/issues"
+  },
+  "homepage": "https://github.com/asdsdsfdg/wetube#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
