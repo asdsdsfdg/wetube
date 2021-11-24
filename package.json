@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "asdsdsfdg",
   "scripts": {
-    "dev": "nodemon --exec npx babel-node src/server.js"
+    "dev": "nodemon --delay 2s --exec npx babel-node src/server.js"
   },
   "license": "MIT",
   "bugs": {
