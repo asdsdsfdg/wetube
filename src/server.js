@@ -1,16 +1,23 @@
-// const express = require("express");
-//이렇게 express를 실행할 수는 있음
-//하지만 babel에 도움을 받아 보다 최신 문법을 이용가능 아래처럼
 import express from "express";
-//npm run dev으로 코드를 터미널에서 실행할 수 있다.
-//다만 수정할 때마다 일일히 npm run dev를 쳐줘야 하는 단점이 있음
-//nodemon을 사용하면 한번만 써도 자동으로 재실행해줌
 
 const PORT = 4000;
 
-const app = express();
+const app = express(); //어플리케이션을 만듬
+
+//이곳에서 어플리케이션을 설정한다.
+const logger = (req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+};
+const handleHome = (req, res) => {
+  return res.send("I love middlewares");
+};
+// app.use(logger) 그어떤 url에도 작동하는 미들웨어를 만들어줌. app.get위에 두지 않으면 초기 라우터엔 작동안하니 유의
+app.get("/", logger, handleHome);
+
+//이곳에서 어플리케이션을 설정한다.
 
 const handleListening = () =>
   console.log(`✅ Server listenting on port http://localhost:${PORT} 🚀`);
 
-app.listen(PORT, handleListening);
+app.listen(PORT, handleListening); //외부로부터 request받았을 때 서버가 listen 해야함.
