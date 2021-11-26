@@ -1,19 +1,23 @@
 import express from "express";
+import morgan from "morgan";
 
 const PORT = 4000;
 
 const app = express(); //어플리케이션을 만듬
+const logger = morgan("dev");
 
 //이곳에서 어플리케이션을 설정한다.
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
+const home = (req, res) => {
+  return res.send("hello");
 };
-const handleHome = (req, res) => {
-  return res.send("I love middlewares");
+const login = (req, res) => {
+  return res.send("login");
 };
+
 // app.use(logger) 그어떤 url에도 작동하는 미들웨어를 만들어줌. app.get위에 두지 않으면 초기 라우터엔 작동안하니 유의
-app.get("/", logger, handleHome);
+app.use(logger);
+app.get("/", home);
+app.get("/login", login);
 
 //이곳에서 어플리케이션을 설정한다.
 
