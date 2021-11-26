@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"; //자바스크립트에서 각 js파일들은 독립되어 있기에 일일히 import해줘야 한다.
 import morgan from "morgan";
 
 const PORT = 4000;
