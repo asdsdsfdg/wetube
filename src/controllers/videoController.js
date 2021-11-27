@@ -1,10 +1,13 @@
-export const trending = (req, res) => res.send("Home Page Videos");
-export const see = (req, res) => {
-  return res.send(`Watch Video #${req.params.id}`);
-};
-export const edit = (req, res) => {
-  return res.send("Edit");
-};
+// export const trending = (req, res) =>
+//   res.send(
+//     "<!DOCTYPE html><html lang='ko'><head><title>Wetube</title></head><body><h1>Home</h1><footer>&copy;2021 Wetube -  All rights reserved</footer></body></html>"
+//   );
+// 저딴 방식으로 html을 리턴할 수는 없다.
+//따라서 간편하게 뷰 엔진의 일종인 pug를 사용해 파일을 pug로 보내서 pug가 이를 html 형식으로 변환해 이곳으로 가져오도록 하자.
+
+export const trending = (req, res) => res.render("home"); //view의 이름을 넣어주는데 여기선 home.pug니까 home을 넣어준다.
+export const see = (req, res) => res.render("watch");
+export const edit = (req, res) => res.render("edit");
 export const search = (req, res) => res.send("Search");
 export const upload = (req, res) => res.send("Upload");
 export const deleteVideo = (req, res) => {

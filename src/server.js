@@ -12,8 +12,10 @@ const logger = morgan("dev");
 
 //여기까지 어플리케이션을 설정한다.
 
+app.set("view engine", "pug"); //뷰엔진으로 pug를 사용하도록 set한다. express는 항상 view를 현재 디렉토리의 views파일에서 찾는다.
+//단 cwd, 즉 현재 작업 중인 디렉토리의 기준은 node를 불러오고 서버를 시작하는 디렉토리고 그 노드는 package.json에서 시작하고 있다.
+app.set("views", process.cwd() + "/src/views"); //따라서 디렉토리 기준을 바꿔줄 필요가 있다.
 app.use(logger);
-
 app.use("/", globalRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
