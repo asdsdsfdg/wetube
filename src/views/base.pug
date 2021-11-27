@@ -1,9 +1,10 @@
 doctype html 
 html(lang="ko")
     head 
-        title Wetube 
+        block head
     body 
-        h1 Base!
+        block content
+        //- content란 이름의 block을 형성하면, (base.pug를 extends한 파일들의 경우) content 블록에 각 파일마다 여러 다른 내용을 집어 넣을 수 있게 된다.
     include partials/footer.pug
 
     //- 이렇게 include하면 일일히 footer을 바꿔주지 않아도 footer퍼그파일만 수정하면 일괄 적용된다.
