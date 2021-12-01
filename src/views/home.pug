@@ -3,4 +3,9 @@ extends base.pug
 
 
 block content 
-    h2 Welcome here you will see the trending videos 
+    h2 Welcome here you will see the trending videos
+    ul
+        each video in videos  // 여기서 videos는 렌더링된 변수 array나 objects. 이는 videoController에서 정의된 array와 이름이 같아야 한다.단 each 뒤의 video는 각 array의 item을 가리키는데 이름이 꼭 video일 필요는 없다.     
+            li=video
+        else
+            li Sorry nothing found. 
