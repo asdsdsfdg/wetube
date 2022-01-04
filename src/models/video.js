@@ -11,16 +11,18 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
-videoSchema.pre("save", async function () {
-  //pre는 previous, 이전을 의미하는 미들웨어. 즉 'save'하기 이전에 인터셉터하는 미들웨어다.]
-  //this는 현재 저장하고자 하는 문서를 가리킨다
-  //처음 그냥 string으로 hashtags를 저장하면 ['a, b, c, d']같이 'a, b, c, d'가 하나의 첫번째 요소(hashtags[0])인 배열로 저장돤다.
-  //이 hashtags[0]만 있는 hasgtags 배열을 db에 저장하기 전에 미들웨어가 끼어들어 hastags[0]을 쉼표를 기준으로 원소를 split해 ['a','b','c','d'] 이렇게 4개의 요소를 지닌 배열로 db에 바꿔서 넘긴다.
-  this.hashtags = this.hashtags[0]
+videoSchema.static("formatHashtags", function (hashtags) {
+  return hashtags
     .split(",")
     .map((word) => (word.startsWith("#") ? word : `#${word}`));
 });
 
-//미들웨어는 무조건 model이 생성되기 전에 만들어야 한다.
+//static을 사용하는 이유는 video.creat video.findbyidandupdate 같은 함수를 만들어 코드를 중복시키지 않고 유용하게 쓰기 위해서다
+//즉 static은 몽구스 오브젝트를 위한 함수를 만드는 하나의 방법이다.
+//물론 별도로 function formatHashtags() {}을 만든 뒤 이 함수를 export function 하여 쓸 수 있지만 이럴 경우 매번 import를 따로 해줘야 하는 번거로움이 있다.
+//하지만 static 함수를 만들어두면 이미 이건 Video에 포함되어 있기 때문에 export default 되어 있다면 따로 export 할 필요 없고 import 할 필요도 없다.
+//여기서 pre save() 미들웨어를 쓰지 못하게 된 이유 : https://mongoosejs.com/docs/middleware.html#notes
+//링크를 보면 Pre and post save() hooks are not executed on update(), findOneAndUpdate() 라고되어 있다 즉 우리가 쓰는  findByIdAndUpdate는 findOneAndUpdate()를 호출하는데 이놈은 'update' 만 가능할 뿐 'save'는 불가능하다.
+// 또한 findOneAndUpdate는 업데이트된 문서에 액새스할 수가없다.
 const Video = mongoose.model("Video", videoSchema);
 export default Video;
